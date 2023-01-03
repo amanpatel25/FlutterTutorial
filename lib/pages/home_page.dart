@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:testflutter/models/cataog.dart';
 import 'package:testflutter/widgets/drawer.dart';
+import 'package:testflutter/widgets/item_widget.dart';
 
 class HomePage extends StatelessWidget {
   final int days = 10;
@@ -8,6 +10,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dummyList = List.generate(10, (index) => CatalogModel.items[0]);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -15,9 +18,15 @@ class HomePage extends StatelessWidget {
           style: TextStyle(color: Colors.black),
         ),
       ),
-      body: Center(
-        child: Container(
-          child: Text("Welcome to $days days for Flutter by $name"),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView.builder(
+          itemBuilder: ((context, index) {
+            return ItemWidget(
+              item: dummyList[index],
+            );
+          }),
+          itemCount: dummyList.length,
         ),
       ),
       drawer: MyDrawer(),
